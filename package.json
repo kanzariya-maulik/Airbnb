@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.2"
+  },
+  "name": "airbnb",
+  "version": "1.0.0",
+  "description": "/////////////////////////////////////////////////////",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanzariya-maulik/Airbnb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kanzariya-maulik/Airbnb/issues"
+  },
+  "homepage": "https://github.com/kanzariya-maulik/Airbnb#readme"
+}
