@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>All listings</h2>
+    <hr>
+    <a href="/listing/new"><button>New List</button> </a>
+    <hr>
+<%for(list of listing){%>
+    <div style="border: 1px solid black;">
+        <img height="100px" width="100px" src="<%= list.image %>">
+        <h4><%= list.title %></h4>
+        <p>Description : <%= list.description %></p>
+        <P>Price : &#8377; <%= list.price.toLocaleString('en-IN') %></P>
+        <p>location : <%= list.location %>, <%= list.country %></p>
+        <a href="/listing/<%= list.id %>"><button>See in Details</button></a> 
+    </div>
+<%}%>
+</body>
+</html>
