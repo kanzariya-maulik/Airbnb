@@ -22,19 +22,6 @@ main().then(()=>{
     console.log("database connected");
 });
 
-// app.get("/testListing",async (req,res)=>{
-//     let sampleListing = new listing({
-//         title:"new Title",
-//         description:"New Home for Your Family",
-//         image:"",
-//         price:1200,
-//         location:"goa",
-//         country:"India"
-//     });
-//     const result =await sampleListing.save();
-//     console.log(result);
-// });
-
 app.get("/listing",async (req,res)=>{
     let allListing = await listing.find({});
     res.render("listings/index.ejs",{listing:allListing});

@@ -1,17 +1,30 @@
 <% layout("layouts/boilerplate.ejs") %>
 <body>
-    <h2>All listings</h2>
-    <hr>
-    <a href="/listing/new"><button>New List</button> </a>
-    <hr>
-<%for(list of listing){%>
-    <div style="border: 1px solid black;">
-        <img height="100px" width="100px" src="<%= list.image %>">
-        <h4><%= list.title %></h4>
-        <p>Description : <%= list.description %></p>
-        <P>Price : &#8377; <%= list.price.toLocaleString('en-IN') %></P>
-        <p>location : <%= list.location %>, <%= list.country %></p>
-        <a href="/listing/<%= list.id %>"><button>See in Details</button></a>
+    <div class="container-fluid">
+        <h2>All listings</h2>
+    <div class="container-fluid">
+        <div class="row row-col-xl-4 row-col-lg-3 row-col-md-2 row-col-sm-1">
+            <%for(list of listing){%>
+                
+                <div class="card" style="width: 18rem;">
+                    <a href="/listing/<%= list.id %>" class="listing-link">
+                    <img src="<%= list.image %>" class="card-img-top" style="height: 18rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        <b><%= list.title %></b><br>
+                        Price : &#8377; <%= list.price.toLocaleString('en-IN') %><br>
+                        location : <%= list.location %>, <%= list.country %>
+                      </p>
+                      
+                    </div>
+                </a>
+                  </div>
+            <%}%>
+            </div>
     </div>
-<%}%>
+    
+    </div>
+
+    
 </body>
