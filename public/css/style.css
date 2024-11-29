@@ -1,6 +1,31 @@
 *{
     font-family: "Puls Jakarta Sans",sans-serif;
 }
+body{
+    display: flex;
+    flex-direction: column;
+    min-height:100vh;
+    overflow-x: hidden;
+}
+
+.container{
+    flex: 1;
+}
+
+.img_of_Edit{
+    height: 20rem;
+    width: 18rem;
+}
+.add_btn{
+    background-color: #fe424d;
+    border: none;
+    transition: 0.4s ease-in-out;
+}
+.add_btn:hover{
+    border: none;
+    background-color: #ee424d;
+    color: white;
+}
 
 .logo{
     height: 2.5rem;

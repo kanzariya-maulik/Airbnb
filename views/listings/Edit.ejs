@@ -1,63 +1,41 @@
 <% layout("layouts/boilerplate.ejs") %>
-<style>
-    input[type=text], select, textarea {
-  width: 100%; /* Full width */
-  padding: 12px; /* Some padding */ 
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Make sure that padding and width stays in place */
-  margin-top: 6px; /* Add a top margin */
-  margin-bottom: 16px; /* Bottom margin */
-  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
-}
-
-/* Style the submit button with a specific background color etc */
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-</style>
-<body>
-    <div class="container">
-        Edit Listing 
-        <form action="/listing/<%= list._id%>?_method=PUT" method="POST">
-      
-          <label for="Title">Title</label>
-          <input type="text" id="Title" name="title" value="<%= list.title %>"><br>
-      
-          image Preview :<br><img height="100px" width="100px" src="<%= list.image %>"><br>
-          <label for="image">image URL</label>
-          <input type="text" id="image" name="image" value="<%=list.image%>">
-          
-          <label for="price">Price</label>
-          <input type="text" id="price" name="price" value="<%=list.price%>">
-
-          <label for="country">Country</label>
-          <input type="text" id="country" name="country" value="<%=list.country%>">
-      
-          <label for="location">Location</label>
-          <input type="text" id="location" name="location" value="<%=list.location%>">
-
-          <label for="description">Description</label>
-          <textarea id="description" name="description" placeholder="Write something.." style="height:100px"><%= list.description %></textarea>
-      
-          <input type="submit" value="Update">
-      
-        </form>
-      </div>
+<body class="w-100">
+  <div class="row">
+    <div class="col-7 offset-3">
+      <h1>Edit Listing</h1>
+      <form action="/listing/<%= list._id %>?_method=PUT" method="POST" class="form">
+        <div class="form-group">
+          <label for="Title" class="col-form-label">Title</label>
+          <input type="text" id="Title" name="title" class="form-control" value="<%= list.title %>" placeholder="Write Catchy Title">
+        </div>
+        <div class="form-group">
+          <small class="form-text text-muted">Image Preview:</small>
+          <img src="<%= list.image %>" alt="Image preview" class="img-thumbnail img_of_Edit"><br>
+          <label for="image" class="col-form-label">Image URL</label>
+          <input type="text" id="image" name="image" class="form-control" value="<%= list.image %>" placeholder="URL of Image">
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="price" class="col-form-label">Price</label>
+            <input type="text" id="price" name="price" class="form-control" value="<%= list.price %>" placeholder="Price">
+          </div>
+          <div class="form-group col-md-8">
+            <label for="country" class="col-form-label">Country</label>
+            <input type="text" id="country" name="country" class="form-control" value="<%= list.country %>" placeholder="Country">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="location" class="col-form-label">Location</label>
+          <input type="text" id="location" name="location" class="form-control" value="<%= list.location %>" placeholder="Location">
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-form-label">Description</label>
+          <textarea id="description" name="description" class="form-control" style="height:100px" placeholder="Write something..."><%= list.description %></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Update Listing" class="btn btn-dark mt-2">
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
