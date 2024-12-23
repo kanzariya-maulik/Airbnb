@@ -3,10 +3,16 @@
     <div class="row">
       <div class="col-7 offset-3">
         <h1>Create New Listing</h1>
-    <form action="/listing" class="form" method="post">
+    <form action="/listing" class="form needs-validation" method="post" novalidate>
       <div class="form-group">
         <label for="Title" class="col-form-label">Title</label>
-          <input type="text" id="Title" name="title" class="form-control" placeholder="Write Catchy Title">
+          <input type="text" id="Title" name="title" class="form-control" placeholder="Write Catchy Title" required>
+          <div class="valid-feedback">
+              Nice Title !!!  
+          </div>
+          <div class="invalid-feedback">
+              Please Enter Title so user Can search it.
+          </div>
       </div>
       <div class="form-group">
         <label for="image" class="col-form-label">image URL</label>
@@ -16,23 +22,39 @@
       <div class="row">
         <div class="form-group col-md-4">
           <label for="price" class="col-form-label">Price</label>
-          <input type="text" id="price" name="price" placeholder="Price" class="form-control">
+          <input type="number" id="price" min="1" name="price" placeholder="Price" class="form-control" required>
+        <div class="invalid-feedback">
+            Enter valid price.
+        </div>
         </div>  
         <div class="form-group col-md-8">
           <label for="country" class="col-form-label">Country</label>
-          <input type="text" id="country" name="country" placeholder="Country" class="form-control">
+          <input type="text" id="country" name="country" placeholder="Country" class="form-control" required>
+  
+        <div class="invalid-feedback">
+          Enter valid Country.
+        </div>
         </div>
       </div>
         
           
       <div class="form-group">
         <label for="location" class="col-form-label">Location</label>
-        <input type="text" id="location" name="location" placeholder="Location" class="form-control">
+        <input type="text" id="location" name="location" placeholder="Location" class="form-control" required>
+      <div class="invalid-feedback">
+          Enter Valid Location.
+      </div>
       </div>
         <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea id="description" name="description" placeholder="Write something.." class="form-control" style="height:100px"></textarea>
-       </div>
+          <textarea id="description" name="description" placeholder="Write something.." required class="form-control" style="height:100px"></textarea>
+          <div class="valid-feedback">
+            Sounds Good.  
+        </div>
+        <div class="invalid-feedback">
+            Please Enter Short-note.
+        </div>
+        </div>
 
        <div class="form-group">
         <input type="submit" value="Create New List" class="btn add_btn mt-2">

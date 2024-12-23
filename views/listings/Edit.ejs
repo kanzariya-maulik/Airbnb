@@ -3,34 +3,49 @@
   <div class="row">
     <div class="col-7 offset-3">
       <h1>Edit Listing</h1>
-      <form action="/listing/<%= list._id %>?_method=PUT" method="POST" class="form">
+      <form action="/listing/<%= list._id %>?_method=PUT" method="POST" class="form needs-validation" novalidate>
         <div class="form-group">
           <label for="Title" class="col-form-label">Title</label>
-          <input type="text" id="Title" name="title" class="form-control" value="<%= list.title %>" placeholder="Write Catchy Title">
+          <input type="text" id="Title" name="title" class="form-control" value="<%= list.title %>" placeholder="Write Catchy Title" required>
+          <div class="invalid-feedback">
+            Please enter a title.
+          </div>
         </div>
         <div class="form-group">
           <small class="form-text text-muted">Image Preview:</small>
           <img src="<%= list.image %>" alt="Image preview" class="img-thumbnail img_of_Edit"><br>
           <label for="image" class="col-form-label">Image URL</label>
-          <input type="text" id="image" name="image" class="form-control" value="<%= list.image %>" placeholder="URL of Image">
+          <input type="text" id="image" name="image" class="form-control" required value="<%= list.image %>" placeholder="URL of Image">
         </div>
         <div class="row">
           <div class="form-group col-md-4">
             <label for="price" class="col-form-label">Price</label>
-            <input type="text" id="price" name="price" class="form-control" value="<%= list.price %>" placeholder="Price">
+            <input type="text" id="price" min="1" name="price" class="form-control" value="<%= list.price %>" placeholder="Price" required>
+            <div class="invalid-feedback">
+              enter valid Price.
+            </div>
           </div>
           <div class="form-group col-md-8">
             <label for="country" class="col-form-label">Country</label>
-            <input type="text" id="country" name="country" class="form-control" value="<%= list.country %>" placeholder="Country">
+            <input type="text" id="country" name="country" class="form-control" value="<%= list.country %>" placeholder="Country" required>
+            <div class="invalid-feedback">
+              enter valid Country.
+            </div>
           </div>
         </div>
         <div class="form-group">
           <label for="location" class="col-form-label">Location</label>
-          <input type="text" id="location" name="location" class="form-control" value="<%= list.location %>" placeholder="Location">
+          <input type="text" id="location" name="location" class="form-control" value="<%= list.location %>" placeholder="Location" required>
+          <div class="invalid-feedback">
+            enter valid Location.
+          </div>
         </div>
         <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea id="description" name="description" class="form-control" style="height:100px" placeholder="Write something..."><%= list.description %></textarea>
+          <textarea id="description" name="description" class="form-control" style="height:100px" placeholder="Write something..." required><%= list.description %></textarea>
+          <div class="invalid-feedback">
+            enter valid Short-note.
+          </div>
         </div>
         <div class="form-group">
           <input type="submit" value="Update Listing" class="btn btn-dark mt-2">
