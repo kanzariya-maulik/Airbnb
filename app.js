@@ -11,7 +11,9 @@ const methodOverride=require("method-override");
 const { error } = require("console");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError = require('./utils/ExpressError.js');
-const {listingSchema} = require("./listingSchema.js");
+const {listingSchema} = require("./Schema.js");
+const {reviewSchema} = require("./Schema.js");
+
 
 //setup
 app.set("view engine","ejs");
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname,"public")));
 
 //db connection and models
 const listing = require("./models/listings.js");
+let review = require("./models/review.js");
+const { wrap } = require("module");
 async function main() {
     mongoose.connect("mongodb://127.0.0.1:27017/airbnb");
 }
@@ -34,6 +38,16 @@ main().then(()=>{
 
 let validateListing = (req,res,next)=>{
     let {error} = listingSchema.validate(req.body);
+    if(error){
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+}
+
+let validateReview = (req,res,next)=>{
+    let {error} = reviewSchema.validate(req.body);
     if(error){
         let errMsg = error.details.map((el)=>el.message).join(",");
         throw new ExpressError(400,errMsg);
@@ -59,7 +73,7 @@ app.put("/listing/:id",validateListing,wrapAsync(async (req,res)=>{
 
 app.get("/listing/:id",wrapAsync(async (req,res,next)=>{
     let {id} = req.params;
-    let listingData =await listing.findById(id);
+    let listingData =await listing.findById(id).populate("reviews");
     res.render("listings/listing.ejs",{list:listingData});
 }));
 
@@ -84,14 +98,40 @@ app.post("/listing",validateListing,wrapAsync(async (req,res,next)=>{
     res.redirect("/listing");
 }));
 
+//review 
+
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res,next)=>{
+        let {id} = req.params;
+        let list = await listing.findById(id);
+        console.log(req.body.review);
+        let reviewData = new review(req.body.review);
+
+        list.reviews.push(reviewData);
+
+        await reviewData.save();
+        await list.save();
+
+        res.redirect(`/listing/${id}`);
+}));
+
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+        let {id,reviewId} = req.params;
+
+        await listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
+
+        await review.findByIdAndDelete(reviewId);
+
+        res.redirect(`/listing/${id}`);
+}));
+
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
 });
 
-app.use((err,req,res,next)=>{
-    let {statusCode = 500,message = "Something went Wrong"} = err;
-    res.status(statusCode).render("error.ejs",{err});
-});
+// app.use((err,req,res,next)=>{
+//     let {statusCode = 500,message = "Something went Wrong"} = err;
+//     res.status(statusCode).render("error.ejs",{err});
+// });
 
 app.listen(8080,(req,res)=>{
     console.log("port is listning on 8080");
