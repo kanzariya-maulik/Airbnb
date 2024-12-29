@@ -29,7 +29,7 @@
     <div class="row mt-5">
       <div class="col w-50 offset-4">
         <h4>Leave Reviews</h4>
-        <form action="/listings/<%= list.id %>/reviews" class="needs-validation" method="post" novalidate>
+        <form action="/listing/<%= list.id %>/reviews" class="needs-validation" method="post" novalidate>
           <div class="card" style="width: 20rem;">
           <div class="mb-3 mt-3">
             <label class="form-label" for="rating">Stars</label>
@@ -65,7 +65,7 @@
                 ☆
               <% } %>
             </p>
-            <form action="/listings/<%= list._id %>/reviews/<%= element._id %>?_method=DELETE" class="my-3" method="post">
+            <form action="/listing/<%= list._id %>/reviews/<%= element._id %>?_method=DELETE" class="my-3" method="post">
               <button type="submit" class="btn btn-outline-dark">Delete</button>
             </form>
           </div>

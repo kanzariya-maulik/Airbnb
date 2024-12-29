@@ -15,7 +15,10 @@
 <link rel="stylesheet" href="/css/style.css">
 <body>
     <%- include("../includes/navbar.ejs");  %>
+    <div class="container-fluid">
+    <%- include("../includes/flash.ejs");  %>
     <%- body %>
+    </div>
 </body>
 <%- include("../includes/footer.ejs");  %>
 <script src="/script/script.js"></script>
