@@ -19,6 +19,11 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"public")));
 
+//passport
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const user = require("./models/user.js");
+
 //db connection and models
 const { wrap } = require("module");
 async function main() {
@@ -43,20 +48,35 @@ const sessionOption={
 app.use(session(sessionOption));
 app.use(flash());
 
+// Passport configuration
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new passportLocal(user.authenticate()));
+
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.userData=req.user;
     next();
 })
 
 //user router
-const listings = require("./routes/listing.js");
-app.use("/listing",listings);
+const listingsRouter = require("./routes/listing.js");
+app.use("/listing",listingsRouter);
 
-//review 
-const reviews = require("./routes/review.js");
-app.use("/listing/:id/reviews",reviews);
+//review route
+const reviewsRouter = require("./routes/review.js");
+app.use("/listing/:id/reviews",reviewsRouter);
 
+//user route
+const userRouter = require("./routes/user.js");
+app.use("/",userRouter);
+
+//Error middelwares
 
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));

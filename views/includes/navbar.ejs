@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top w-100">
     <div class="container-fluid">
       <a class="navbar-brand" href="/listing"><img class="logo" id="logo" src="/logo/Airbnb_Logo_Bélo.svg.png"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,6 +9,17 @@
           <a class="nav-link" href="/listing">Home</a>
           <a class="nav-link" href="/listing">listings</a>
           <a class="nav-link" href="/listing/new">New Listing</a>
+        </div>
+        
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <% if(!userData){%>
+          <a class="btn m-1 btn-primary" href="/singup">Sing Up</a>
+          <a class="btn m-1 btn-dark" href="/login">Sing In</a>
+          <% }%>
+          <% if(userData){%>
+          <a class="btn m-1 btn-danger" href="/logout" class="btn">Logout</a>
+          <% }%>
         </div>
       </div>
     </div>
