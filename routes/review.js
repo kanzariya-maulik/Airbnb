@@ -6,19 +6,11 @@ const ExpressError = require("../utils/ExpressError.js");
 const Review = require("../models/review.js"); // Correct model import
 const Listing = require("../models/listings.js"); // Import listing model
 const { reviewSchema } = require("../Schema.js"); // Import review schema
-
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const errMsg = error.details.map((el) => el.message).join(", ");
-        throw new ExpressError(400, errMsg);
-    } else {
-        next();
-    }
-};
+const {validateReview, isLoggedIn} = require("../middelware.js");
 
 router.post(
     "/",
+    isLoggedIn,
     validateReview,
     wrapAsync(async (req, res, next) => {
         const { id } = req.params;
@@ -30,7 +22,7 @@ router.post(
 
         console.log(req.body.review);
         const reviewData = new Review(req.body.review);
-
+        reviewData.author = req.user._id;
         listing.reviews.push(reviewData);
 
         await reviewData.save();
@@ -45,6 +37,7 @@ router.post(
 
 router.delete(
     "/:reviewId",
+    isLoggedIn,
     wrapAsync(async (req, res) => {
         const { id, reviewId } = req.params;
 

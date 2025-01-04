@@ -82,10 +82,10 @@ app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
 });
 
-app.use((err,req,res,next)=>{
-    let {statusCode = 500,message = "Something went Wrong"} = err;
-    res.status(statusCode).render("error.ejs",{err});
-});
+// app.use((err,req,res,next)=>{
+//     let {statusCode = 500,message = "Something went Wrong"} = err;
+//     res.status(statusCode).render("error.ejs",{err});
+// });
 
 app.listen(8080,(req,res)=>{
     console.log("port is listning on 8080");

@@ -2,23 +2,28 @@
 <body>
     <div class="row">
         <div class="col w-100 offset-4">
-            <div class="card" style="width: 20rem;">
+            <div class="card" style="width: 25rem;">
                 <img class="card-img-top" src="<%= list.image %>" alt="Card image cap">
                 <div class="card-body">
                   <h2 class="card-title">
                     <%= list.title %>
                 </h2>
                   <p class="card-text">
+                    
+                <p>Owned By  <%= list.owner.username %></p>
                 <p>Description : <%= list.description %></p>
                 <P>Price :  &#8377; <%= list.price.toLocaleString('en-IN') %></P>
                 <p>location : <%= list.location %>, <%= list.country %></p>
                   </p>
+                  <% if(userData && userData._id.equals(list.owner._id)){%>
                   <div class="d-flex w-100 align-items-center">
                   <a href="/listing/<%= list.id %>/edit" class="btn btn-primary mx-2">Edit Details</a>
                 <form action="/listing/<%= list.id %>?_method=DELETE"  method="post">
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </div>
+            
+             <%} %>
                 </div>
               </div>
               
@@ -26,6 +31,7 @@
         </div>
     </div>
     <hr>
+    <% if(userData){%>
     <div class="row mt-5">
       <div class="col w-50 offset-4">
         <h4>Leave Reviews</h4>
@@ -47,15 +53,16 @@
         </form>
     </div>
   </div>
-
   
-  <hr><div class="row mt-5">
+  <hr>
+<%}%>
+  <div class="row mt-5">
     <div class="col-md-6 offset-md-3">
       <h4>What People Think!!!</h4>
       <% for (let element of list.reviews) { %>
         <div class="card border mb-3" style="max-width: 100%;">
           <div class="card-body border">
-            <h5 class="card-title"><%= element.username || "Anonymous" %></h5>
+            <h5 class="card-title"><i>@<%= element.author.username %></i></h5>
             <p class="card-text"><%= element.comment %></p>
             <p class="card-text">
               <% for (let i = 0; i < element.rating; i++) { %>
@@ -65,9 +72,11 @@
                 ☆
               <% } %>
             </p>
-            <form action="/listing/<%= list._id %>/reviews/<%= element._id %>?_method=DELETE" class="my-3" method="post">
-              <button type="submit" class="btn btn-outline-dark">Delete</button>
-            </form>
+            <%if(userData && element.author._id.equals(userData._id)){ %>
+              <form action="/listing/<%= list._id %>/reviews/<%= element._id %>?_method=DELETE" class="my-3" method="post">
+                <button type="submit" class="btn btn-outline-dark">Delete</button>
+              </form>
+            <%}%>
           </div>
         </div>
       <% } %>
