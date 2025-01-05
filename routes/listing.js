@@ -8,18 +8,18 @@ const {isLoggedIn, isOwned,validateListing} = require("../middelware.js");
 
 const listingController = require("../controllers/listingController.js")
 
-router.get("/",wrapAsync(listingController.index));
+router.route("/")
+.get(wrapAsync(listingController.index))
+.post(validateListing,wrapAsync(listingController.addListing));
 
 router.get("/new",isLoggedIn,listingController.renderNewListingForm);
 
-router.put("/:id",isLoggedIn,isOwned,validateListing,wrapAsync(listingController.updateListing));
-
-router.get("/:id",wrapAsync(listingController.showListing));
+router.route("/:id")
+.put(isLoggedIn,isOwned,validateListing,wrapAsync(listingController.updateListing))
+.get(wrapAsync(listingController.showListing))
+.delete(isLoggedIn,isOwned,wrapAsync(listingController.destroyListing));
 
 router.get("/:id/edit",isLoggedIn,isOwned,wrapAsync(listingController.editListing));
 
-router.delete("/:id",isLoggedIn,isOwned,wrapAsync(listingController.destroyListing));
-
-router.post("/",validateListing,wrapAsync(listingController.addListing));
 
 module.exports =  router;

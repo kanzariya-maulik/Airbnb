@@ -7,13 +7,13 @@ const { saveUrl } = require("../middelware.js");
 
 const userController = require("../controllers/userController.js");
 
-router.get("/singup",userController.renderSingup);
+router.route("/singup")
+.get(userController.renderSingup)
+.post(wrapAsync(userController.singup));
 
-router.post("/singup",wrapAsync(userController.singup));
-
-router.get("/login",userController.renderLogin);
-
-router.post("/login",saveUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true,}),userController.login);
+router.route("/login")
+.get(userController.renderLogin)
+.post(saveUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true,}),userController.login);
 
 router.get("/logout", userController.logout);
 
