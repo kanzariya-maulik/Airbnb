@@ -50,9 +50,12 @@ module.exports.destroyListing = async (req,res)=>{
 }
 
 module.exports.addListing = async (req,res,next)=>{
+    let url = req.file.path;
+    let filename = req.file.filename;
     let {title,description,image,price,location,country}=req.body;
     let newListing = new listing({title:title,description,image,price,location,country});
     newListing.owner = req.user._id;
+    newListing.image={url,filename};
     const result =await newListing.save();
     req.flash("success","New Listing created Succesfully!");
     res.redirect("/listing");
