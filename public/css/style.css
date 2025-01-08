@@ -74,3 +74,81 @@ body{
     opacity: 0.1;
     background-color: white;
 }
+
+#map{
+    height: 50vh;
+    width: 40wh;
+}
+
+/* Search style */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  .filter:hover{
+    opacity: 1;
+  }
+  .filter .icone {
+    font-size: 20px;
+    color: #555;
+  }
+  
+  .filter p {
+    font-size: 10px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  /* Buttons */
+  form button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+  }
+  .tax-toggle{
+    padding: 1rem;
+    border: 1px solid #adadad;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    height: 2rem;
+  }
+  .tax-value{
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .filter {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .filter .icone {
+      font-size: 28px;
+    }
+  
+    .filter p {
+      font-size: 12px;
+    }
+  }
+  

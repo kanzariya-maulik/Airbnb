@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const review = require("./review.js");
 const User = require("./user.js");
+const { required } = require("joi");
 
 const ListingSchema = new mongoose.Schema({
     title: {
@@ -32,6 +33,19 @@ const ListingSchema = new mongoose.Schema({
     owner:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
+    },
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+        },
+        coordinates: {
+            type: [Number], 
+        },
+    },
+    category:{
+        type:String,
+        enum:["Rooms","Iconic city","Mountain","Pool","Camping","Farms","Artics","Nature","Urban","Beaches","Luxary"],
     }
 });
 

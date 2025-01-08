@@ -15,4 +15,16 @@
         form.classList.add('was-validated')
       }, false)
     })
-  })()
+  })();
+
+  let toogle = document.getElementById("flexSwitchCheckDefault");
+  toogle.addEventListener("click",()=>{
+    let tax_val = document.getElementsByClassName("tax-value");
+    for(tax of tax_val){
+      if(tax.style.display != "block"){
+        tax.style.display="block";
+      }else{
+        tax.style.display="none";
+      }
+    }
+  })

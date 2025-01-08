@@ -1,4 +1,10 @@
 <% layout("layouts/boilerplate.ejs") %>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const coordinates = <%- JSON.stringify(list.geometry.coordinates) %>;
+  const tt = "<%=  list.title %>";
+  const imageURL = "<%=  list.image.url %>";
+</script>
 <body>
     <div class="row">
         <div class="col w-100 offset-4">
@@ -71,6 +77,7 @@
   <hr>
 <%}%>
   <div class="row mt-5">
+    <% if(list.reviews.length >0){ %>
     <div class="col-md-6 offset-md-3">
       <h4>What People Think!!!</h4>
       <% for (let element of list.reviews) { %>
@@ -89,8 +96,16 @@
         </div>
       <% } %>
     </div>
+    <% } %>
   </div>
-  
+
+  <div class="row mt-5">
+    <div class="col-md-6 offset-md-3">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
+    <script src="/script/map.js"></script>
+  </div>
+  </div>
 </div>
     
 </body>
