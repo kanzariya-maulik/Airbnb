@@ -1,49 +1,62 @@
 <style>
-  .search-btn{
+  .search-btn {
     background-color: #fe424d;
     color: #ffffff;
-    border-radius: 7rem;
+    border-radius: 50px;
   }
-  .search-btn:hover{
+  .search-btn:hover {
     background-color: #fe424d;
     color: #ffffff;
   }
-  .search-inp{
-    border-radius: 5rem;
-    width: 20rem;
+  .search-inp {
+    border-radius: 50px;
+    width: 15rem;
+    max-width: 100%;
+  }
+  /* Ensure the logo is responsive */
+  .logo {
+    max-width: 100%;
+    height: auto;
+  }
+  .navbar-center {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
   }
+  .navbar-end {
+    display: flex;
+    align-items: center;
+  }
 </style>
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top w-100">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listing"><img class="logo" id="logo" src="/logo/Airbnb_Logo_Bélo.svg.png"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/listing">listings</a>
-        </div>
-        <div class="navbar-nav" style="margin-left: 15rem;">
-          <form class="d-flex ms-auto" role="search" method="post" action="/search">
-            <input class="form-control me-2 search-inp" name="query" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </form>
-        </div>
-          
 
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/listing/new">Add your home in list</a>
-          <% if(!userData){%>
-          <a class="nav-link" href="/singup"><b>Sing Up</b></a>
-          <a class="nav-link" href="/login"><b>Sing In</b></a>
-          <% }%>
-          <% if(userData){%>
-          <a class="nav-link" href="/logout" class="btn"><b>Logout</b></a>
-          <% }%>
-        </div>
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top w-100">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listing">
+      <img class="logo" id="logo" src="/logo/Airbnb_Logo_Bélo.svg.png" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-center">
+        <form class="d-flex" role="search" method="post" action="/search">
+          <input class="form-control me-2 search-inp" name="query" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+      <div class="navbar-end ms-auto">
+        <a class="nav-link" href="/listing">Listings</a>
+        <a class="nav-link" href="/listing/new">Add your home</a>
+        <% if (!userData) { %>
+          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Sign In</b></a>
+        <% } %>
+        <% if (userData) { %>
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
+        <% } %>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

@@ -17,6 +17,7 @@
                   <p class="card-text">
                     
                 <p>Owned By  <%= list.owner.username %></p>
+
                 <p>Description : <%= list.description %></p>
                 <P>Price :  &#8377; <%= list.price.toLocaleString('en-IN') %></P>
                 <p>location : <%= list.location %>, <%= list.country %></p>
@@ -37,7 +38,7 @@
         </div>
     </div>
     <hr>
-    <% if(userData){%>
+    <% if(userData && !list.owner._id.equals(userData._id)){%>
     <div class="row mt-5">
       <div class="col w-50 offset-4">
         <h4>Leave Reviews</h4>
@@ -78,6 +79,7 @@
 <%}%>
   <div class="row mt-5">
     <% if(list.reviews.length >0){ %>
+
     <div class="col-md-6 offset-md-3">
       <h4>What People Think!!!</h4>
       <% for (let element of list.reviews) { %>

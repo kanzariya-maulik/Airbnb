@@ -39,9 +39,7 @@ async function main() {
     try {
         await mongoose.connect(process.env.ATLASDB_URL, {
             useNewUrlParser: true,
-            useUnifiedTopology: true, 
-            tls: true,
-            tlsAllowInvalidCertificates: true,
+            useUnifiedTopology: true,
         });
         console.log('Connected to MongoDB successfully!');
     } catch (error) {

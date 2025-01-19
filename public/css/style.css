@@ -37,6 +37,7 @@ body{
     color: #222222;
     background-color: rgba(255,255,255, 0.91);
     border-bottom: 1px solid black;
+    z-index: 1;
 }
 
 .container{
@@ -151,4 +152,27 @@ body{
       font-size: 12px;
     }
   }
+
+  .pos {
+    top: 0;
+    position: absolute;
+    z-index: 4;
+  }
   
+  .underline {
+    display: block;
+    height: 2px;
+    background-color: black;
+    margin-top: 2px; /* Adds space between underline and message */
+    animation: underAnim 4s linear backwards;
+  }
+  
+  @keyframes underAnim {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0;
+    }
+  }
+    

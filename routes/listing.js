@@ -11,7 +11,16 @@ const {isLoggedIn, isOwned,validateListing} = require("../middelware.js");
 const listingController = require("../controllers/listingController.js");
 const multer  = require('multer')
 const {storage} = require("../cloudConfig.js");
-const upload = multer({ storage });
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype.startsWith('image/')) {
+        cb(null, true); // Accept the file if it's an image
+      } else {
+        cb(new Error('Only image files are allowed'), false); // Reject the file if it's not an image
+      }
+    },
+  });
 
 router.route("/")
 .get(wrapAsync(listingController.index))

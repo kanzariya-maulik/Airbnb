@@ -59,12 +59,14 @@ module.exports.destroyListing = async (req,res)=>{
 }
 
 module.exports.addListing = async (req,res,next)=>{
-    let cord = await geocodingClient
+    try{
+        let cord = await geocodingClient
     .forwardGeocode({
         query: req.body.location +","+ req.body.country,
         limit: 1
       })
         .send();
+        
     let url = req.file.path;
     let filename = req.file.filename;
     let {title,description,image,price,location,country,category}=req.body;
@@ -75,4 +77,9 @@ module.exports.addListing = async (req,res,next)=>{
     const result =await newListing.save();
     req.flash("success","New Listing created Succesfully!");
     res.redirect("/listing");
+    }
+    catch(e){
+        req.flash("error","cannot find location on map. Please recheck your location");
+        return res.redirect("/listing/new");
+    }
 }

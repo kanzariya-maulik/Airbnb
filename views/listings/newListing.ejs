@@ -6,7 +6,7 @@
     <form action="/listing" class="form needs-validation" method="post" novalidate enctype="multipart/form-data">
       <div class="form-group">
         <label for="Title" class="col-form-label">Title</label>
-          <input type="text" id="Title" name="title" class="form-control" placeholder="Write Catchy Title" required>
+          <input type="text" id="Title" name="title" maxlength="50" class="form-control" placeholder="Write Catchy Title" required>
           <div class="valid-feedback">
               Nice Title !!!  
           </div>
@@ -41,7 +41,7 @@
       <div class="row">
         <div class="form-group col-md-4">
           <label for="price" class="col-form-label">Price</label>
-          <input type="number" id="price" min="1" name="price" placeholder="Price" class="form-control" required>
+          <input type="number" id="price" min="1" max="999999999999" name="price" placeholder="Price" class="form-control" required>
         <div class="invalid-feedback">
             Enter valid price.
         </div>
@@ -49,7 +49,6 @@
         <div class="form-group col-md-8">
           <label for="country" class="col-form-label">Country</label>
           <input type="text" id="country" name="country" placeholder="Country" class="form-control" required>
-  
         <div class="invalid-feedback">
           Enter valid Country.
         </div>
@@ -66,10 +65,7 @@
       </div>
         <div class="form-group">
           <label for="description" class="col-form-label">Description</label>
-          <textarea id="description" name="description" placeholder="Write something.." required class="form-control" style="height:100px"></textarea>
-          <div class="valid-feedback">
-            Sounds Good.  
-        </div>
+          <textarea id="description" name="description" maxlength="200" placeholder="Write something.." required class="form-control" style="height:100px"></textarea>
         <div class="invalid-feedback">
             Please Enter Short-note.
         </div>

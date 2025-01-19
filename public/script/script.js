@@ -17,14 +17,34 @@
     })
   })();
 
-  let toogle = document.getElementById("flexSwitchCheckDefault");
-  toogle.addEventListener("click",()=>{
-    let tax_val = document.getElementsByClassName("tax-value");
-    for(tax of tax_val){
-      if(tax.style.display != "block"){
-        tax.style.display="block";
-      }else{
-        tax.style.display="none";
-      }
-    }
-  })
+  // Get the toggle switch and tax-value elements
+let toggle = document.getElementById("flexSwitchCheckDefault");
+let taxValues = document.getElementsByClassName("tax-value");
+
+// Function to update visibility of tax values based on toggle state
+function updateTaxValues(state) {
+  for (let tax of taxValues) {
+    tax.style.display = state ? "block" : "none";
+  }
+}
+
+// Check localStorage for the toggle state and apply it
+let isToggled = localStorage.getItem("toggleState") === "true";
+toggle.checked = isToggled; // Set the initial state of the toggle switch
+updateTaxValues(isToggled); // Update the tax values based on the saved state
+
+// Add an event listener to handle toggle changes
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    // Update the toggle state
+    let currentState = toggle.checked;
+
+    // Store the state in localStorage
+    localStorage.setItem("toggleState", currentState);
+
+    // Update the tax values
+    updateTaxValues(currentState);
+  });
+}
+
+  
