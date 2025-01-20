@@ -4,7 +4,7 @@ Welcome to the **Airbnb Clone** project! 🏠✨ This project replicates key fea
 
 ## 🌐 Live Demo
 
-[👉 Check out the live version here!](https://airbnb-64m2.onrender.com)
+[👉 Check out the live version here!](https://airbnb-64m2.onrender.com/listing)
 
 ## ✨ Features
 
