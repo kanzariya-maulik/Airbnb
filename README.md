@@ -50,9 +50,12 @@ Follow these steps to run the project locally:
    - Create a `.env` file in the root directory.
    - Add the following variables:
      ```env
-     PORT=3000
-     DATABASE_URL=<your-mongodb-connection-string>
-     SECRET=<your-secret-key>
+     DATABASE_URL=mongoURL
+     SECRET=hashing_secret
+     CLOUD_NAME=cloudinary_account_name
+     CLOUD_API_KEY=cloudinary_api_key
+     CLOUD_API_SECRET=cloudinary_api_secret
+     MAP_TOKEN=mapbox_token
      ```
 
 5. **Start the server:**
@@ -114,5 +117,6 @@ This project is licensed under the **MIT License**. See the LICENSE file for det
 - 🏠 [Airbnb](https://www.airbnb.com) for the inspiration.
 - 🌍 [Render](https://render.com) for hosting the live demo.
 - 🗺️ [Mapbox](https://www.mapbox.com) for providing the mapping services.
+- ☁️ [Cloudinary](https://cloudinary.com) for image hosting and management.
 - 💖 All contributors who helped make this project a success!
 
