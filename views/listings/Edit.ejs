@@ -1,56 +1,59 @@
 <% layout("layouts/boilerplate.ejs") %>
 <body class="w-100">
-  <div class="row">
-    <div class="col-7 offset-3">
-      <h1>Edit Listing</h1>
-      <form action="/listing/<%= list._id %>?_method=PUT" method="POST" class="form needs-validation" enctype="multipart/form-data" novalidate>
-        <div class="form-group">
-          <label for="Title" class="col-form-label">Title</label>
-          <input type="text" id="Title" name="title" class="form-control" value="<%= list.title %>" placeholder="Write Catchy Title" required>
-          <div class="invalid-feedback">
-            Please enter a title.
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <h1 class="text-center mb-4">Edit Listing</h1>
+        <form action="/listing/<%= list._id %>?_method=PUT" method="POST" class="form needs-validation" enctype="multipart/form-data" novalidate>
+          <!-- Title Field -->
+          <div class="form-group mb-3">
+            <label for="Title" class="col-form-label">Title</label>
+            <input type="text" id="Title" name="title" class="form-control" value="<%= list.title %>" placeholder="Write Catchy Title" required>
+            <div class="invalid-feedback">Please enter a title.</div>
           </div>
-        </div>
-        <div class="form-group">
-          <small class="form-text text-muted">Image Preview:</small>
-          <img src="<%= list.image.url %>" alt="Image preview" class="img-thumbnail img_of_Edit"><br>
-          <label for="image" class="col-form-label">Image URL</label>
-          <input type="file" id="image" name="image" class="form-control">
-        </div>
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="price" class="col-form-label">Price</label>
-            <input type="text" id="price" min="1" name="price" class="form-control" value="<%= list.price %>" placeholder="Price" required>
-            <div class="invalid-feedback">
-              enter valid Price.
+
+          <!-- Image Preview and Upload -->
+          <div class="form-group mb-3">
+            <small class="form-text text-muted">Image Preview:</small>
+            <img src="<%= list.image.url %>" alt="Image preview" class="img-thumbnail img_of_Edit mb-2 w-100">
+            <label for="image" class="col-form-label">Change Image</label>
+            <input type="file" id="image" name="image" class="form-control">
+          </div>
+
+          <!-- Price and Country -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="price" class="col-form-label">Price</label>
+              <input type="number" id="price" min="1" name="price" class="form-control" value="<%= list.price %>" placeholder="Price" required>
+              <div class="invalid-feedback">Enter a valid price.</div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="country" class="col-form-label">Country</label>
+              <input type="text" id="country" name="country" class="form-control" value="<%= list.country %>" placeholder="Country" required>
+              <div class="invalid-feedback">Enter a valid country.</div>
             </div>
           </div>
-          <div class="form-group col-md-8">
-            <label for="country" class="col-form-label">Country</label>
-            <input type="text" id="country" name="country" class="form-control" value="<%= list.country %>" placeholder="Country" required>
-            <div class="invalid-feedback">
-              enter valid Country.
-            </div>
+
+          <!-- Location Field -->
+          <div class="form-group mb-3">
+            <label for="location" class="col-form-label">Location</label>
+            <input type="text" id="location" name="location" class="form-control" value="<%= list.location %>" placeholder="Location" required>
+            <div class="invalid-feedback">Enter a valid location.</div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="location" class="col-form-label">Location</label>
-          <input type="text" id="location" name="location" class="form-control" value="<%= list.location %>" placeholder="Location" required>
-          <div class="invalid-feedback">
-            enter valid Location.
+
+          <!-- Description Field -->
+          <div class="form-group mb-3">
+            <label for="description" class="col-form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" style="height:100px" placeholder="Write something..." required><%= list.description %></textarea>
+            <div class="invalid-feedback">Enter a valid description.</div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="description" class="col-form-label">Description</label>
-          <textarea id="description" name="description" class="form-control" style="height:100px" placeholder="Write something..." required><%= list.description %></textarea>
-          <div class="invalid-feedback">
-            enter valid Short-note.
+
+          <!-- Submit Button -->
+          <div class="form-group text-center">
+            <input type="submit" value="Update Listing" class="btn btn-dark mt-2 w-100">
           </div>
-        </div>
-        <div class="form-group">
-          <input type="submit" value="Update Listing" class="btn btn-dark mt-2">
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </body>

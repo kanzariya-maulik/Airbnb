@@ -1,80 +1,77 @@
 <% layout("layouts/boilerplate.ejs") %>
 <body class="w-100">
-    <div class="row">
-      <div class="col-7 offset-3">
-        <h1>Create New Listing</h1>
-    <form action="/listing" class="form needs-validation" method="post" novalidate enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="Title" class="col-form-label">Title</label>
-          <input type="text" id="Title" name="title" maxlength="50" class="form-control" placeholder="Write Catchy Title" required>
-          <div class="valid-feedback">
-              Nice Title !!!  
-          </div>
-          <div class="invalid-feedback">
-              Please Enter Title so user Can search it.
-          </div>
-      </div>
-          
-      <div class="form-group">
-        <label for="image" class="col-form-label">Upload image</label>
-          <input type="file" id="image" name="image" class="form-control">
-      </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <h1 class="text-center mb-4">Create New Listing</h1>
+                <form action="/listing" class="form needs-validation" method="post" novalidate enctype="multipart/form-data">
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="Title" class="col-form-label">Title</label>
+                        <input type="text" id="Title" name="title" maxlength="50" class="form-control" placeholder="Write a Catchy Title" required>
+                        <div class="valid-feedback">Nice Title!</div>
+                        <div class="invalid-feedback">Please enter a title so users can search for it.</div>
+                    </div>
 
-      <div class="form-group">
-        <label for="Catagory" class="col-form-label">Category</label>
-        <select class="form-select" name="category" id="Catagory">
-          <option value="Rooms">Rooms</option>
-          <option value="Iconic city">Iconic City</option>
-          <option value="Mountain">Mountain</option>
-          <option value="Pool">Pool</option>
-          <option value="Camping">Camping</option>
-          <option value="Farms">Farms</option>
-          <option value="Artics">Arctics</option>
-          <option value="Nature">Nature</option>
-          <option value="Urban">Urban</option>
-          <option value="Beaches">Beaches</option>
-          <option value="Luxary">Luxary</option>
-        </select>
-      </div>
-      
-          
-      <div class="row">
-        <div class="form-group col-md-4">
-          <label for="price" class="col-form-label">Price</label>
-          <input type="number" id="price" min="1" max="999999999999" name="price" placeholder="Price" class="form-control" required>
-        <div class="invalid-feedback">
-            Enter valid price.
-        </div>
-        </div>  
-        <div class="form-group col-md-8">
-          <label for="country" class="col-form-label">Country</label>
-          <input type="text" id="country" name="country" placeholder="Country" class="form-control" required>
-        <div class="invalid-feedback">
-          Enter valid Country.
-        </div>
-        </div>
-      </div>
-        
-          
-      <div class="form-group">
-        <label for="location" class="col-form-label">Location</label>
-        <input type="text" id="location" name="location" placeholder="Location" class="form-control" required>
-      <div class="invalid-feedback">
-          Enter Valid Location.
-      </div>
-      </div>
-        <div class="form-group">
-          <label for="description" class="col-form-label">Description</label>
-          <textarea id="description" name="description" maxlength="200" placeholder="Write something.." required class="form-control" style="height:100px"></textarea>
-        <div class="invalid-feedback">
-            Please Enter Short-note.
-        </div>
-        </div>
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label for="image" class="col-form-label">Upload Image</label>
+                        <input type="file" id="image" name="image" class="form-control">
+                    </div>
 
-       <div class="form-group">
-        <input type="submit" value="Create New List" class="btn add_btn mt-2">
-       </div>
-        </form>
-      </div>
-      </div>
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="Category" class="col-form-label">Category</label>
+                        <select class="form-select" name="category" id="Category" required>
+                            <option value="" disabled selected>Choose a Category</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Iconic city">Iconic City</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Pool">Pool</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Artics">Arctics</option>
+                            <option value="Nature">Nature</option>
+                            <option value="Urban">Urban</option>
+                            <option value="Beaches">Beaches</option>
+                            <option value="Luxary">Luxury</option>
+                        </select>
+                    </div>
+
+                    <!-- Price and Country -->
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="number" id="price" min="1" max="999999999999" name="price" placeholder="Price" class="form-control" required>
+                            <div class="invalid-feedback">Enter a valid price.</div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="country" class="col-form-label">Country</label>
+                            <input type="text" id="country" name="country" placeholder="Country" class="form-control" required>
+                            <div class="invalid-feedback">Enter a valid country.</div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="location" class="col-form-label">Location</label>
+                        <input type="text" id="location" name="location" placeholder="Location" class="form-control" required>
+                        <div class="invalid-feedback">Enter a valid location.</div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Description</label>
+                        <textarea id="description" name="description" maxlength="200" placeholder="Write something..." required class="form-control" style="height: 100px"></textarea>
+                        <div class="invalid-feedback">Please enter a short description.</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group text-center">
+                        <input type="submit" value="Create New List" class="btn btn-primary mt-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
