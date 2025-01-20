@@ -67,7 +67,7 @@ Follow these steps to run the project locally:
 6. **Open your browser and visit:**
 
    ```
-   http://localhost:3000
+   http://localhost:8080
    ```
 
 ## 📸 Screenshots
