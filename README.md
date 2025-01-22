@@ -74,6 +74,15 @@ Follow these steps to run the project locally:
 
 🎉 Add some screenshots here to showcase your application’s UI and functionality.
 
+![image](https://github.com/user-attachments/assets/14a062af-bd2c-405f-bc42-8e3c9d7cc676)
+![image](https://github.com/user-attachments/assets/3fa4f0e1-540b-4b21-9207-33cf1967f2d6)
+![image](https://github.com/user-attachments/assets/6fb22fe2-73d3-4dd1-9ee6-808986431ab8)
+![image](https://github.com/user-attachments/assets/76ca54e6-b40a-4d4c-9e79-35dfeb2394d5)
+![image](https://github.com/user-attachments/assets/06b96c0b-37bd-4b9e-ae6e-d156f3c248e4)
+![image](https://github.com/user-attachments/assets/66a5d7a9-9287-4725-8bd2-5e5c7206db82)
+
+
+
 ## 📂 Folder Structure
 
 ```
