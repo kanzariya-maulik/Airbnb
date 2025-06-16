@@ -98,6 +98,11 @@ Airbnb/
 |-- package.json     # Dependencies and scripts
 ```
 
+
+## Diagram 
+![diagram](https://github.com/user-attachments/assets/20c76332-9cfa-44c3-bde5-6f16d09d3fcf)
+
+
 ## 🤝 Contributing
 
 Contributions are welcome! 🎉 If you’d like to improve this project:
