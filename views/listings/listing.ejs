@@ -15,10 +15,10 @@
           <div class="card-body">
             <h2 class="card-title text-center"><%= list.title %></h2>
             <p class="card-text">
-              <p><strong>Owned By:</strong> <%= list.owner.username %></p>
-              <p><strong>Description:</strong> <%= list.description %></p>
-              <p><strong>Price:</strong> &#8377; <%= list.price.toLocaleString('en-IN') %></p>
-              <p><strong>Location:</strong> <%= list.location %>, <%= list.country %></p>
+              <p><strong>Owned By:</strong> <%= list?.owner?.username %></p>
+              <p><strong>Description:</strong> <%= list?.description %></p>
+              <p><strong>Price:</strong> &#8377; <%= list?.price?.toLocaleString('en-IN') %></p>
+              <p><strong>Location:</strong> <%= list?.location %>, <%= list?.country %></p>
             </p>
             <% if (userData && userData._id.equals(list.owner._id)) { %>
             <div class="d-flex justify-content-center">

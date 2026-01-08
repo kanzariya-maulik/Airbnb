@@ -1,136 +1,143 @@
-//packages
-if(process.env.NODE_ENV != "production" ){
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
 
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const path = require("path");
-const methodOverride=require("method-override");
+const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
-
-
-//error utilities
+const User = require("./models/user.js");
+const Listing = require("./models/listings.js");
 const ExpressError = require('./utils/ExpressError.js');
 
-//setup
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"/views"));
-app.use(express.urlencoded({extended : true}));
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsMate);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
-app.engine("ejs",ejsMate);
-app.use(express.static(path.join(__dirname,"public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-//passport
-const passport = require("passport");
-const passportLocal = require("passport-local");
-const user = require("./models/user.js");
-
-
-
-//db connection and models
-const { wrap } = require("module");
-async function main() {
+const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.ATLASDB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('Connected to MongoDB successfully!');
+        await mongoose.connect(process.env.ATLASDB_URL);
+        console.log(' Connected to MongoDB successfully!');
+        return true;
     } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
+        console.error(' Error connecting to MongoDB:', error);
+        process.exit(1);
     }
-}
+};
 
-main().then(()=>{
-    console.log("database connected");
-});
-
-const listing = require("./models/listings.js");
-
-const store = MongoStore.create({
-    mongoUrl: process.env.ATLASDB_URL,
-    crypto:{
-        secret:process.env.SECRET,
-
-    },
-    touchAfter:24*3600
-});
-
-store.on("error",()=>{
-    console.log("error in mongo sessions",err);
-});
-
-const sessionOption={
-    store,
-    secret:process.env.SECRET,
-    resave:false,
-    saveUninitialized:true,
-    cookies:{
-        expires:Date.now()+7*24*60*60*1000,
-        maxAge:24*60*60*1000,
-        httpOnly:true,
+const createSessionStore = () => {
+    try {
+        return MongoStore.create({
+            mongoUrl: process.env.ATLASDB_URL,
+            touchAfter: 24 * 3600,
+            autoRemove: 'native'
+        });
+    } catch (error) {
+        console.warn('Failed to create MongoStore, using memory store:', error.message);
+        return null;
     }
-}
+};
 
-app.use(session(sessionOption));
-app.use(flash());
+const initializeApp = async () => {
+    await connectDB();
+    
+    const store = createSessionStore();
+    
+    const sessionConfig = {
+        store,
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            secure: process.env.NODE_ENV === 'production'
+        }
+    };
 
-// Passport configuration
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new passportLocal(user.authenticate()));
+    app.use(session(sessionConfig));
+    app.use(flash());
 
-passport.serializeUser(user.serializeUser());
-passport.deserializeUser(user.deserializeUser());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new LocalStrategy(User.authenticate()));
+    passport.serializeUser(User.serializeUser());
+    passport.deserializeUser(User.deserializeUser());
 
-
-app.use((req,res,next)=>{
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.userData=req.user;
-    next();
-})
-
-//user router
-const listingsRouter = require("./routes/listing.js");
-app.use("/listing",listingsRouter);
-
-//review route
-const reviewsRouter = require("./routes/review.js");
-app.use("/listing/:id/reviews",reviewsRouter);
-
-//user route
-const userRouter = require("./routes/user.js");
-app.use("/",userRouter);
-
-app.post("/search",async(req,res)=>{
-    let {query} = req.body;
-    const result = await listing.find({
-        $or: [
-            { title: { $regex: query, $options: 'i' } },  
-            { location: { $regex: query, $options: 'i' } },
-            { category: { $regex: query, $options: 'i' } } 
-        ]
+    app.use((req, res, next) => {
+        res.locals.success = req.flash("success");
+        res.locals.error = req.flash("error");
+        res.locals.userData = req.user;
+        next();
     });
-    res.render("listings/search.ejs",{listing : result});
-});
-//Error middelwares
 
-app.all("*",(req,res,next)=>{
-    next(new ExpressError(404,"Page Not Found"));
-});
+    setupRoutes();
+    setupErrorHandling();
 
-app.use((err,req,res,next)=>{
-    let {statusCode = 500,message = "Something went Wrong"} = err;
-    res.status(statusCode).render("error.ejs",{err});
-});
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+};
 
-app.listen(8080,(req,res)=>{
-    console.log("port is listning on 8080");
-});
+const setupRoutes = () => {
+    const listingsRouter = require("./routes/listing.js");
+    const reviewsRouter = require("./routes/review.js");
+    const userRouter = require("./routes/user.js");
+
+    app.use("/listing", listingsRouter);
+    app.use("/listing/:id/reviews", reviewsRouter);
+    app.use("/", userRouter);
+
+    app.post("/search", async (req, res) => {
+        try {
+            const { query } = req.body;
+            if (!query || query.trim() === '') {
+                return res.redirect('/listing');
+            }
+
+            const searchRegex = new RegExp(query.trim(), 'i');
+            const results = await Listing.find({
+                $or: [
+                    { title: searchRegex },
+                    { location: searchRegex },
+                    { category: searchRegex }
+                ]
+            }).limit(50);
+
+            res.render("listings/search.ejs", { listing: results, query });
+        } catch (error) {
+            console.error('Search error:', error);
+            req.flash('error', 'Search failed. Please try again.');
+            res.redirect('/listing');
+        }
+    });
+};
+
+const setupErrorHandling = () => {
+    app.all("*", (req, res, next) => {
+        next(new ExpressError(404, "Page Not Found"));
+    });
+
+    app.use((err, req, res, next) => {
+        const { statusCode = 500, message = "Something went wrong!" } = err;
+        console.error(`Error ${statusCode}:`, message);
+        res.status(statusCode).render("error.ejs", { err });
+    });
+};
+
+initializeApp().catch(console.error);

@@ -1,27 +1,30 @@
-<% if (success && success.length) { %>
+<% if (success && success.length > 0) { %>
     <div class="pos alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-      <%= success %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      <div class="underline"></div>
+        <%= success[0] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="underline"></div>
     </div>
-    <% } %>
+<% } %>
     
-    <% if (error && error.length) { %>
-
+<% if (error && error.length > 0) { %>
     <div class="pos alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-        <%= error %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      <div class="underline"></div>
+        <%= error[0] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="underline"></div>
     </div>
-    <% } %>
+<% } %>
 
-    <script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         const alertMessages = document.querySelectorAll(".pos");
-
-alertMessages.forEach((alert) => {
-  setTimeout(() => {
-    alert.style.display = "none";
-  }, 4000);
-});
-    </script>
+        alertMessages.forEach((alert) => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => {
+                    alert.style.display = "none";
+                }, 300);
+            }, 4000);
+        });
+    });
+</script>
     
