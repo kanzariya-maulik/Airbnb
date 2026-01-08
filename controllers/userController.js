@@ -36,6 +36,7 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
     req.flash("success", "Welcome back to Airbnb!");
     const redirectUrl = res.locals.redirectUrl || "/listing";
+    delete req.session.redirectUrl;
     res.redirect(redirectUrl);
 };
 

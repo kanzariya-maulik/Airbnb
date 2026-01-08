@@ -2,6 +2,15 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
+// Suppress specific deprecation warnings from dependencies
+process.removeAllListeners('warning');
+process.on('warning', (warning) => {
+    if (warning.name === 'DeprecationWarning' && warning.message.includes('util.isArray')) {
+        return; // Ignore util.isArray deprecation warnings
+    }
+    console.warn(warning.name, warning.message);
+});
+
 const express = require("express");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
@@ -55,17 +64,14 @@ const createSessionStore = () => {
 const initializeApp = async () => {
     await connectDB();
     
-    const store = createSessionStore();
-    
     const sessionConfig = {
-        store,
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            secure: process.env.NODE_ENV === 'production'
+            secure: false
         }
     };
 
@@ -130,12 +136,17 @@ const setupRoutes = () => {
 
 const setupErrorHandling = () => {
     app.all("*", (req, res, next) => {
+        // Ignore Chrome DevTools requests
+        if (req.originalUrl.includes('.well-known/appspecific/com.chrome.devtools')) {
+            return res.status(404).end();
+        }
+        console.log("404 - Route not found:", req.originalUrl);
         next(new ExpressError(404, "Page Not Found"));
     });
 
     app.use((err, req, res, next) => {
         const { statusCode = 500, message = "Something went wrong!" } = err;
-        console.error(`Error ${statusCode}:`, message);
+        console.error(`Error ${statusCode}: ${message} - URL: ${req.originalUrl}`);
         res.status(statusCode).render("error.ejs", { err });
     });
 };
