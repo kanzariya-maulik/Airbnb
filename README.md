@@ -46,7 +46,6 @@ Follow these steps to run the project locally:
    ```
 
 4. **Set up environment variables:**
-
    - Create a `.env` file in the root directory.
    - Add the following variables:
      ```env
@@ -70,9 +69,34 @@ Follow these steps to run the project locally:
    http://localhost:8080
    ```
 
-## 📸 Screenshots
+### 🐳 Running with Docker
 
-🎉 Add some screenshots here to showcase your application’s UI and functionality.
+1. **Build and Run:**
+   ```bash
+   npm run docker
+   ```
+2. **Access the app:**
+   ```
+   http://localhost:8080/listing
+   ```
+
+### ☸️ Running with Kubernetes (Kind)
+
+> This setup runs the application in a local Kubernetes cluster using [Kind](https://kind.sigs.k8s.io/). It creates a cluster with 1 control-plane node and 2 worker nodes, and injects your `.env` variables via a ConfigMap.
+
+1. **Ensure you have Docker, `kind`, and `kubectl` installed.**
+2. **Launch the cluster and deploy:**
+   ```bash
+   npm run k8s_kind
+   ```
+3. **Access the application:**
+   ```
+   http://localhost:30001/listing
+   ```
+
+_(To easily redeploy changes with zero-downtime rolling updates, use `npm run k8s_kind_redeploy`)_
+
+## 📸 Screenshots
 
 ![image](https://github.com/user-attachments/assets/14a062af-bd2c-405f-bc42-8e3c9d7cc676)
 ![image](https://github.com/user-attachments/assets/3fa4f0e1-540b-4b21-9207-33cf1967f2d6)
@@ -80,8 +104,6 @@ Follow these steps to run the project locally:
 ![image](https://github.com/user-attachments/assets/76ca54e6-b40a-4d4c-9e79-35dfeb2394d5)
 ![image](https://github.com/user-attachments/assets/06b96c0b-37bd-4b9e-ae6e-d156f3c248e4)
 ![image](https://github.com/user-attachments/assets/66a5d7a9-9287-4725-8bd2-5e5c7206db82)
-
-
 
 ## 📂 Folder Structure
 
@@ -98,10 +120,9 @@ Airbnb/
 |-- package.json     # Dependencies and scripts
 ```
 
+## Diagram
 
-## Diagram 
 ![diagram](https://github.com/user-attachments/assets/20c76332-9cfa-44c3-bde5-6f16d09d3fcf)
-
 
 ## 🤝 Contributing
 
@@ -122,7 +143,6 @@ Contributions are welcome! 🎉 If you’d like to improve this project:
    ```
 5. **Submit a pull request.** 🚀
 
-
 ## 🙏 Acknowledgements
 
 - 🏠 [Airbnb](https://www.airbnb.com) for the inspiration.
@@ -130,4 +150,3 @@ Contributions are welcome! 🎉 If you’d like to improve this project:
 - 🗺️ [Mapbox](https://www.mapbox.com) for providing the mapping services.
 - ☁️ [Cloudinary](https://cloudinary.com) for image hosting and management.
 - 💖 All contributors who helped make this project a success!
-
