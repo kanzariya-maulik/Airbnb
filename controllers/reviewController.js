@@ -9,7 +9,7 @@ module.exports.createReview = async (req, res, next) => {
         throw new ExpressError(404, "Listing not found");
     }
 
-    console.log(req.body.review);
+    logger.info(req.body.review);
     const reviewData = new Review(req.body.review);
     reviewData.author = req.user._id;
     listing.reviews.push(reviewData);

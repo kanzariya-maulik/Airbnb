@@ -53,7 +53,7 @@ module.exports.editListing = async (req,res)=>{
 module.exports.destroyListing = async (req,res)=>{
     let {id} = req.params;
     let deletedData= await listing.findByIdAndDelete(id);
-    console.log(deletedData);
+    logger.info(deletedData);
     req.flash("success","Listing Deleted Succesfully!");
     res.redirect("/listing");
 }

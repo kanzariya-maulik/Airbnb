@@ -18,7 +18,9 @@
     "nodemon": "^3.1.11",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^8.0.0"
+    "passport-local-mongoose": "^8.0.0",
+    "pino": "^10.3.1",
+    "pino-http": "^11.0.0"
   },
   "name": "airbnb",
   "version": "1.0.0",
@@ -27,7 +29,9 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker": "docker build -t airbnb . && docker run -p 8080:8080 --env-file .env airbnb",
+    "k8s_kind": "docker build -t airbnb . && kind create cluster --config kind-config.yaml && kind load docker-image airbnb --name kind && kubectl create configmap airbnb-config --from-env-file=.env && kubectl apply -f deployment.yaml",
+    "k8s_kind_redeploy": "docker build -t airbnb:latest . && kind load docker-image airbnb:latest --name kind && kubectl rollout restart deployment airbnb && kubectl rollout status deployment airbnb"
   },
   "author": "",
   "license": "ISC",

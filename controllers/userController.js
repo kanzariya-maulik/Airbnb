@@ -43,7 +43,7 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res, next) => {
     req.logout((err) => {
         if (err) {
-            console.error('Logout error:', err);
+            logger.error('Logout error:', err);
             req.flash("error", "Something went wrong during logout.");
             return next(err);
         }
